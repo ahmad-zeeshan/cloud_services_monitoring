@@ -29,7 +29,7 @@ resource "aws_security_group" "prometheus_sg" {
 }
 
 resource "aws_instance" "prometheus_server" {
-  ami           = "ami-05c13eab67c5d8861"
+  ami           = "ami-05a5f6298acdb05b6"
   instance_type = "t2.micro"
   key_name      = "my_terraform_key"
   security_groups = [aws_security_group.prometheus_sg.name]
@@ -67,7 +67,7 @@ resource "aws_security_group" "node_exporter_sg" {
 
 resource "aws_instance" "node_exporter" {
   count         = 2
-  ami           = "ami-05c13eab67c5d8861"
+  ami           = "ami-05a5f6298acdb05b6"
   instance_type = "t2.micro"
   key_name      = "my_terraform_key"
   security_groups = [aws_security_group.node_exporter_sg.name]
