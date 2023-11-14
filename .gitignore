@@ -3,3 +3,8 @@
 
 # Ignore Terraform lock file
 .terraform.lock.hcl
+
+# ignore secrets
+
+my_terraform_key.pem
+terraform-user_accessKeys.csv
