@@ -8,3 +8,11 @@
 
 my_terraform_key.pem
 terraform-user_accessKeys.csv
+
+#ignore vscode
+
+.vscode/
+
+# ignore tf state backup
+
+terraform.tfstate.backup
