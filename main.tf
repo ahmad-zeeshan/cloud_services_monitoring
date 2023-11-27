@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_security_group" "prometheus_sg" {
   name        = "prometheus_sg"
-  description = "Security group for Prometheus server"
+  description = "Security group for Prometheus server and Grafana"
 
   ingress {
     from_port   = 9090
@@ -14,10 +14,17 @@ resource "aws_security_group" "prometheus_sg" {
   }
 
   ingress {
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Adjust this to your IP for SSH access
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
