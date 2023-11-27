@@ -13,3 +13,4 @@
   roles:
     - prometheus_blackbox_exporter
     - prometheus
+    - grafana
