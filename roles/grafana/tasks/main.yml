@@ -1,0 +1,48 @@
+- name: Import Grafana GPG key
+  get_url:
+    url: https://rpm.grafana.com/gpg.key
+    dest: /tmp/gpg.key
+    mode: '0644'
+
+- name: Import GPG key into RPM
+  ansible.builtin.rpm_key:
+    state: present
+    key: /tmp/gpg.key
+
+- name: Create Grafana repo file
+  ansible.builtin.copy:
+    dest: /etc/yum.repos.d/grafana.repo
+    content: |
+      [grafana]
+      name=grafana
+      baseurl=https://rpm.grafana.com
+      repo_gpgcheck=1
+      enabled=1
+      gpgcheck=1
+      gpgkey=https://rpm.grafana.com/gpg.key
+      sslverify=1
+      sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+    mode: '0644'
+
+- name: Install Grafana
+  ansible.builtin.dnf:
+    name: grafana
+    state: latest
+
+- name: Grafana configuration file copy
+  template:
+    src: "grafana.conf.j2"
+    dest: /etc/grafana/grafana.ini
+  notify: event_restart_grafana
+
+- name: Grafana server started
+  service:
+    name: grafana-server
+    enabled: true
+    state: started
+
+- name: Check if Grafana is accessible
+  uri:
+    url: http://127.0.0.1:3000
+    method: GET
+    status_code: 200
