@@ -3,10 +3,8 @@
     name:
       - openssh-clients
       - wget
-      - iotop
       - sudo
       - which
-      - ntp
       - yum
       - nano
       - vim
@@ -14,8 +12,6 @@
       - tree
       - lsof
       - nmap-ncat
-      - htop
-      - ipmitool
       - tcpdump
     state: present
 
