@@ -1,3 +1,32 @@
+- name: Install required packages
+  ansible.builtin.dnf:
+    name:
+      - openssh-clients
+      - wget
+      - iotop
+      - sudo
+      - which
+      - ntp
+      - yum
+      - nano
+      - vim
+      - man
+      - tree
+      - lsof
+      - nmap-ncat
+      - htop
+      - ipmitool
+      - tcpdump
+    state: present
+
+- name: Configure Message of the Day (MOTD)
+  ansible.builtin.template:
+    src: templates/motd.j2
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: '0644'
+
 - name: Creating node_exporter user group
   group: name="{{groupId}}"
   become: true
@@ -48,3 +77,4 @@
     url: http://127.0.0.1:9100/metrics
     method: GET
     status_code: 200
+
