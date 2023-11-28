@@ -15,4 +15,5 @@ terraform-user_accessKeys.csv
 
 # ignore tf state backup
 
+terraform.tfstate
 terraform.tfstate.backup
